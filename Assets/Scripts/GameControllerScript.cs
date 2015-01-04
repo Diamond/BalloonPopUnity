@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameControllerScript : MonoBehaviour {
 
 	public Transform balloonPrefab;
+
+	public Text scoreDisplay;
+
+	private int playerScore = 0;
 
 	private float timeSinceLastSpawn = 0.0f;
 	private float timeToSpawn = 0.0f;
@@ -21,6 +26,8 @@ public class GameControllerScript : MonoBehaviour {
 			balloons.Add(balloon);
 		}
 		SpawnBalloon();
+
+		GameStart();
 	}
 	
 	// Update is called once per frame
@@ -40,6 +47,22 @@ public class GameControllerScript : MonoBehaviour {
 				bs.Activate();
 				break;
 			}
+		}
+	}
+
+	public void AddPoints(int points=1) {
+		playerScore += points;
+		scoreDisplay.text = "Score: " + playerScore.ToString();
+	}
+
+	public void GameOver() {
+		PlayerPrefs.SetInt("Points", playerScore);
+		Application.LoadLevel("TitleScreen");
+	}
+
+	public void GameStart() {
+		if (PlayerPrefs.HasKey("Points")) {
+			playerScore = PlayerPrefs.GetInt("Points");
 		}
 	}
 }
