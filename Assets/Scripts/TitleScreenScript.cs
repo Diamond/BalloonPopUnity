@@ -14,4 +14,8 @@ public class TitleScreenScript : MonoBehaviour {
 	public void LoadGame() {
 		Application.LoadLevel ("MainGame");
 	}
+
+	public void LoadStore() {
+		Application.LoadLevel("Store");
+	}
 }

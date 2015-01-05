@@ -46,9 +46,32 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\GoogleMobileAds\Api\AdFailedToLoadEventArgs.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\AdPosition.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\AdRequest.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\AdSize.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\BannerView.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\Gender.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\InterstitialAd.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Common\DummyClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Common\IAdListener.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Common\IGoogleMobileAdsBannerClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Common\IGoogleMobileAdsInterstitialClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\AdListener.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\AndroidBannerClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\AndroidInterstitialClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\Utils.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\GoogleMobileAdsClientFactory.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Externs.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\IOSBannerClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\IOSInterstitialClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\MonoPInvokeCallbackAttribute.cs" />
      <Compile Include="Assets\Scripts\BalloonScript.cs" />
      <Compile Include="Assets\Scripts\GameControllerScript.cs" />
+     <Compile Include="Assets\Scripts\PeaShooterScript.cs" />
+     <Compile Include="Assets\Scripts\StoreControllerScript.cs" />
      <Compile Include="Assets\Scripts\TitleScreenScript.cs" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Fonts\LuckiestGuy\LICENSE.txt" />
      <None Include="Assets\Fonts\PressStart2P-Regular\OFL.txt" />
  <Reference Include="UnityEngine.UI">

@@ -23,6 +23,12 @@ public class BalloonScript : MonoBehaviour {
 		this.GetComponent<SpriteRenderer>().sprite = deadlyBalloonImage;
 	}
 
+	public void MakeFriendly() {
+		isDeadly = false;
+		int balloonChoice = Random.Range (0, balloonImages.Count);
+		this.GetComponent<SpriteRenderer>().sprite = balloonImages[balloonChoice];
+	}
+
 	void ResetPosition() {
 		this.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
 	}
@@ -41,8 +47,7 @@ public class BalloonScript : MonoBehaviour {
 		if (Random.Range(0,4) == 0) {
 			MakeDeadly();
 		} else {
-			int balloonChoice = Random.Range (0, balloonImages.Count);
-			this.GetComponent<SpriteRenderer>().sprite = balloonImages[balloonChoice];
+			MakeFriendly ();
 		}
 	}
 

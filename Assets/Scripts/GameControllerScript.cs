@@ -6,42 +6,52 @@ using UnityEngine.UI;
 public class GameControllerScript : MonoBehaviour {
 
 	public Transform balloonPrefab;
+	public Text      scoreDisplay;
 
-	public Text scoreDisplay;
-
-	private int playerScore = 0;
-
-	private float timeSinceLastSpawn = 0.0f;
-	private float timeToSpawn = 0.0f;
-
-	private List<Transform> balloons;
+	private int             _playerScore        = 0;
+	private int             _multiplier         = 1;
+	private float           _timeSinceLastSpawn = 0.0f;
+	private float           _timeToSpawn        = 0.0f;
+	private List<Transform> _balloons;
 
 	private const int BALLOON_POOL = 35;
 
 	void Start () {
-		balloons = new List<Transform>();
+		_balloons = new List<Transform>();
 		for (int i = 0; i < BALLOON_POOL; i++) {
 			Transform balloon = Instantiate(balloonPrefab) as Transform;
 			balloon.parent = this.transform;
-			balloons.Add(balloon);
+			_balloons.Add(balloon);
 		}
 		SpawnBalloon();
 
 		GameStart();
 	}
+
+	void InitMultiplier() {
+		if (PlayerPrefs.HasKey("Multiplier")) {
+			_multiplier = Mathf.Max (1, PlayerPrefs.GetInt ("Multiplier"));
+		}
+	}
+
+	void InitPoints() {
+		if (PlayerPrefs.HasKey("Points")) {
+			_playerScore = PlayerPrefs.GetInt("Points");
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
-		timeSinceLastSpawn += Time.deltaTime;
-		if (timeSinceLastSpawn >= timeToSpawn) {
+		_timeSinceLastSpawn += Time.deltaTime;
+		if (_timeSinceLastSpawn >= _timeToSpawn) {
 			SpawnBalloon();
 		}
 	}
 
 	void SpawnBalloon() {
-		timeSinceLastSpawn = 0.0f;
-		timeToSpawn = Random.Range (0.0f, 2.0f);
-		foreach (Transform b in balloons) {
+		_timeSinceLastSpawn = 0.0f;
+		_timeToSpawn = Random.Range (0.0f, 2.0f);
+		foreach (Transform b in _balloons) {
 			BalloonScript bs = b.GetComponent<BalloonScript>();
 			if (bs && !bs.isActive) {
 				bs.Activate();
@@ -51,18 +61,34 @@ public class GameControllerScript : MonoBehaviour {
 	}
 
 	public void AddPoints(int points=1) {
-		playerScore += points;
-		scoreDisplay.text = "Score: " + playerScore.ToString();
+		_playerScore += points * _multiplier;
+		UpdateScoreDisplay();
 	}
 
 	public void GameOver() {
-		PlayerPrefs.SetInt("Points", playerScore);
+		SavePoints();
 		Application.LoadLevel("TitleScreen");
 	}
 
+	void UpdateScoreDisplay() {
+		scoreDisplay.text = "Score: " + _playerScore.ToString() + "(x" + _multiplier.ToString() + ")";
+	}
+
 	public void GameStart() {
-		if (PlayerPrefs.HasKey("Points")) {
-			playerScore = PlayerPrefs.GetInt("Points");
-		}
+		InitPoints();
+		InitMultiplier();
+		UpdateScoreDisplay();
+	}
+
+	void OnApplicationPause() {
+		SavePoints();
+	}
+
+	void OnApplicationQuit() {
+		SavePoints();
+	}
+
+	void SavePoints() {
+		PlayerPrefs.SetInt("Points", _playerScore);
 	}
 }
